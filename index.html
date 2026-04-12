@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"> <!-- Activate use "all" the alphabets -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> <!-- Make our project mobile-friendly -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'"> <!-- Set security for this app -->
+    <script src="cordova.js"></script> <!-- This converts our Web code to Native Code -->
+    <script src="components/loader.js"></script> <!-- More BTS magic -->
+    <link rel="stylesheet" href="components/loader.css"> <!-- More Monoca/Cordova magic -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Our custom styling -->
+    <!-- Vestigial code to ignore; you should move it to the end -->
+    <script> 
+    </script>
+</head>
+<body>
+    <section id="pgWelcome">    <!-- Welcome START -->
+        <header>
+            <h1>Welcome</h1>
+        </header>
+
+        <main>
+            <h2>Adventure Awaits</h2>
+            <p>Hello and welcome to the most amazing adventure of your liftime!</p>
+            <p>
+                <button onclick="fnScreenNav('#pgWelcome','#pgLoadGame');">Load Game</button>  
+                <button onclick="fnScreenNav('#pgWelcome', '#pgGameStart');">Start Game</button>
+            </p>
+        </main>
+        
+        <footer>
+            <h4>Copyright 2025</h4>
+        </footer>
+    </section> <!-- Welcome END -->
+
+
+    <section id="pgLoadGame">   <!-- Load Game START -->
+        <header>
+            <h1>Load Game</h1>
+        </header>
+
+        <main>
+            <p id="pLGMsg">Welcome, pick you party!</p>
+            <p id="pLGParty">Partyyyyyy</p>
+            <p>
+                <button onclick="fnScreenNav('#pgLoadGame', '#pgWelcome');">Back</button>
+            </p>
+        </main>
+
+        <footer>
+            <h4>Saved Games: <span id="spnLGNumber">Kitty Cat</span></h4>
+        </footer>
+    </section>                  <!-- Load Game END -->
+
+    <section id="pgSettings"> <!-- Settings START -->
+        <header>
+            <h1>Settings</h1>
+        </header>
+
+        <main>
+            <p id="pSettingMsg">Message</p>
+            <p id="pSettingsAction">Action</p>
+        </main>
+    </section> <!-- Settings END -->
+    
+    
+    <section id="pgGameStart"> <!-- #pgGameStart START -->
+    <header>
+        <h1>New Game</h1>
+    </header>
+
+    <main>
+        <p id="pGSMsg">Message!!!!!</p>
+        <p id="pGSAction">
+            <label>Name: </label>  <input id="inGSName"><br>
+            <label>Email: </label> <input id="inGSEmail"><br>
+            <button onclick="fnGSSubmit();">Submit</button> <button onclick="fnGSClear();">Clear</button>
+        </p>
+        <p id="pGSRes">&nbsp;</p>
+    </main>
+
+    <!-- <footer>
+        <h4>BOTTOM</h4>
+    </footer> -->
+    </section><!-- #pgGameStart END -->
+
+    
+    <section id="pgTavern"> <!-- #pgTavern START -->
+    <header>
+        <h1>Aesop's Tavern</h1>
+    </header>
+
+    <main>
+        <p id="pTvnMsg">Message</p>
+        <p id="pTvnParty">Party</p>
+        <p id="pTvnEnemy">Enemy</p>
+        <p id="pTvnAction">Action</p>
+        <p id="pTvnRes" class="contentRight">&nbsp;</p>
+    </main>
+
+    </section> <!-- #pgTavern END -->
+
+    <section id="pgForest"> <!-- #pgForest START -->
+    <header>
+        <h1>FOREST</h1>
+    </header>
+
+    <main>
+        <p id="pFrstMsg">Message</p>
+        <p id="pFrstParty">Party</p>
+        <!-- <p id="pFrstEnemy">Enemy</p> -->
+        <p id="pFrstAction">Action</p>
+        <p id="pFrstRes">&nbsp;</p>
+    </main>
+
+    <footer>
+        <h4>BOTTOM</h4>
+    </footer>
+    </section><!-- #pgForest END -->
+
+    <section id="pgLake">  <!-- #pgLake START -->
+    <header>
+        <h1>LAKE</h1>
+    </header>
+
+    <main>
+        <p id="pLakMsg">Message</p>
+        <p id="pLakParty">Party</p>
+        <p id="pLakEnemy">Enemy</p>
+        <p id="pLakAction">Action</p>
+        <p id="pLakRes">&nbsp;</p>
+    </main> <!-- #pgLake START -->
+
+    </section>
+
+    <section id="pgMountain"> <!-- #pgMountain START -->
+    <header>
+        <h1>Mountain</h1>
+    </header>
+
+    <main>
+        <p id="pMntMsg">Message</p>
+        <p id="pMntParty">Party</p>
+        <p id="pMntEnemy">Enemy</p>
+        <p id="pMntAction">Action</p>
+        <p id="pMntRes">&nbsp;</p>
+    </main>
+
+    </section> <!-- #pgMountain END -->
+
+    <section id="pgBridge"> <!-- #pgBridge START -->
+    <header>
+        <h1>BRIDGE</h1>
+    </header>
+
+    <main>
+        <p id="pBrdMsg">Message</p>
+        <p id="pBrdParty">Party</p>
+        <p id="pBrdEnemy">Enemy</p>
+        <p id="pBrdAction">Action</p>
+        <p id="pBrdRes">&nbsp;</p>
+    </main>
+
+    </section> <!-- #pgBridge END -->
+
+    <section id="pgDungeon"> <!-- #pgDungeon START -->
+    <header>
+        <h1>Dungeon</h1>
+    </header>
+
+    <main>
+        <p id="pTMPMsg">Message</p>
+        <p id="pTMPParty">Party</p>
+        <p id="pTMPEnemy">Enemy</p>
+        <p id="pTMPAction">Action</p>
+        <p id="pTMPRes">&nbsp;</p>
+    </main> 
+
+    <footer>
+        <h4>BOTTOM</h4>
+    </footer>
+    </section><!-- #pgDungeon END -->
+
+
+    <!-- // TEMPLATE for an HTML <section> (Screen) -->
+    <section id="TMP">
+    <header>
+        <h1>TOP</h1>
+    </header>
+
+    <main>
+        <p id="pTMPMsg">Message</p>
+        <p id="pTMPParty">Party</p>
+        <p id="pTMPEnemy">Enemy</p>
+        <p id="pTMPAction">Action</p>
+        <p id="pTMPRes">&nbsp;</p>
+    </main>
+
+    <footer>
+        <h4>BOTTOM</h4>
+    </footer>
+    </section>
+    
+    <!-- NOTE: You MUST link your JS file at the end (not the top) -->
+    <script src="js/maincode.js">
+    </script>
+</body>
+</html>
