@@ -12,7 +12,7 @@ function fnAppInit() {
   if (!tmpAllPlayers) {
     console.log("no saved games yet");
     // Show the Welcome screen
-    document.querySelector("#pgWelcome").style.display = "block";
+    document.querySelector("#pgWelcome").classList.add("active");
     // Set footer to Zero
     document.querySelector("#spnLGNumber").innerHTML = "0";
     // Since no games were saved, disable load button
@@ -20,7 +20,7 @@ function fnAppInit() {
   } else {
     console.log("yes saved games");
     // Show Load Game screen
-    document.querySelector("#pgLoadGame").style.display = "block";
+    document.querySelector("#pgLoadGame").classList.add("active");
     // Set footer to number of saved games
     document.querySelector("#spnLGNumber").innerHTML = tmpAllPlayers.length;
     // Use #pLGTribe placeholder and populate with all our saved games
@@ -125,6 +125,19 @@ let arrNames = [
   "Zaa",
 ];
 
+let arrNamesMiniBoss = [
+  "Malachar",
+  "Dreadmore",
+  "Vexon",
+  "Grimtusk",
+  "Shadowfen",
+  "Morthuul",
+  "Darkspine",
+  "Wraithclaw",
+  "Venomblade",
+  "Skullgorr",
+];
+
 // Define meaning of the main character/tribe member players
 class Heroes {
   constructor(hName, hHP, hSTR, hSPD, hMP, hLUK, hWEP, hCLS) {
@@ -146,8 +159,8 @@ function fnScreenNav(pgHide, pgShow) {
   console.log("Closing:", pgHide);
   console.log("Opening:", pgShow);
 
-  document.querySelector(pgHide).style.display = "none"; // Hide old screen
-  document.querySelector(pgShow).style.display = "block"; // Show new screen
+  document.querySelector(pgHide).classList.remove("active"); // Hide old screen
+  document.querySelector(pgShow).classList.add("active"); // Show new screen
 } // End fnScreenNav()
 
 // Code to navigate from screen to screen, when PLAYING the game
@@ -156,8 +169,8 @@ function fnGameNav(pgHide, pgShow, currTribe) {
   console.log("Closing:", pgHide);
   console.log("Opening:", pgShow);
 
-  document.querySelector(pgHide).style.display = "none";
-  document.querySelector(pgShow).style.display = "block";
+  document.querySelector(pgHide).classList.remove("active");
+  document.querySelector(pgShow).classList.add("active");
   // Probably should move these to each case
 
   // if..Else - pick from 2 possibilities
@@ -175,7 +188,7 @@ function fnGameNav(pgHide, pgShow, currTribe) {
       break;
     case "#pgLake":
       console.log("Go to Lake");
-      tfnLake(currTribe);
+      fnLake(currTribe);
       break;
     case "#pgMountain":
       console.log("Go to Mountain");
@@ -532,9 +545,9 @@ function fnTavern(currTribe) {
           });
         // NOTE: the .addEventListener() for this button is at the end of fnTvnAction() below...
         // Deactivate the buttons, to go to the next level
-        document.querySelector("#btnTvnStr").style.display = "none";
-        document.querySelector("#btnTvnSpd").style.display = "none";
-        document.querySelector("#btnTvnMp").style.display = "none";
+        document.querySelector("#btnTvnStr").disabled = true;
+        document.querySelector("#btnTvnSpd").disabled = true;
+        document.querySelector("#btnTvnMp").disabled = true;
 
         // Update the boon on-screen
         // NOTE: Not another let to create the variable
@@ -613,9 +626,9 @@ function fnTavern(currTribe) {
           .addEventListener("click", function () {
             fnGameNav("#pgTavern", "#pgForest", currTribe);
           });
-        document.querySelector("#btnTvnStr").style.display = "none";
-        document.querySelector("#btnTvnSpd").style.display = "none";
-        document.querySelector("#btnTvnMp").style.display = "none";
+        document.querySelector("#btnTvnStr").disabled = true;
+        document.querySelector("#btnTvnSpd").disabled = true;
+        document.querySelector("#btnTvnMp").disabled = true;
         myTribe = JSON.parse(localStorage.getItem(currTribe));
         document.querySelector("#pTvnTribe").innerHTML =
           "<table border ='1' class='contentCenter boxHero'><tr>" +
@@ -691,9 +704,9 @@ function fnTavern(currTribe) {
           .addEventListener("click", function () {
             fnGameNav("#pgTavern", "#pgForest", currTribe);
           });
-        document.querySelector("#btnTvnStr").style.display = "none";
-        document.querySelector("#btnTvnSpd").style.display = "none";
-        document.querySelector("#btnTvnMp").style.display = "none";
+        document.querySelector("#btnTvnStr").disabled = true;
+        document.querySelector("#btnTvnSpd").disabled = true;
+        document.querySelector("#btnTvnMp").disabled = true;
         myTribe = JSON.parse(localStorage.getItem(currTribe));
         document.querySelector("#pTvnTribe").innerHTML =
           "<table border='1' class='contentCenter boxHero'><tr>" +
@@ -763,9 +776,131 @@ function fnTavern(currTribe) {
 // this.hWEP  = hWEP;
 // this.hCLS  = hCLS;
 
-// Placeholder for future levels
 function tmpLevel(currTribe) {
-  console.log("tmplevel() is running");
+  console.log("Dungeon() is running");
+
+  let myTribe = JSON.parse(localStorage.getItem(currTribe));
+  console.log("All tribe data", myTribe);
+
+  let arrRegions = [
+    "Haus",
+    "Verdania",
+    "Stonekeep",
+    "Ironmoor",
+    "Duskfen",
+    "Cresthaven",
+  ];
+  let valRegion = fnFromArray(arrRegions);
+
+  document.querySelector("#pDngMsg").innerHTML =
+    "You have reached the Dungeon! Cross the lake and claim " +
+    valRegion +
+    " for your Tribe!";
+
+  document.querySelector("#pDngTribe").innerHTML =
+    "<table border='1' class='contentCenter boxHero'><tr>" +
+    "<td><strong>" +
+    myTribe.pMain.hName +
+    "<strong><br>HP:" +
+    myTribe.pMain.hHP +
+    "<br>STR:" +
+    myTribe.pMain.hSTR +
+    "<td>" +
+    "<td><strong>" +
+    myTribe.pComp02.hName +
+    "<strong><br>HP:" +
+    myTribe.pComp02.hHP +
+    "<br>STR:" +
+    myTribe.pComp02.hSTR +
+    "<td>" +
+    "<td><strong>" +
+    myTribe.pComp03.hName +
+    "<strong><br>HP:" +
+    myTribe.pComp03.hHP +
+    "<br>STR:" +
+    myTribe.pComp03.hSTR +
+    "<td>" +
+    "</tr></table>";
+
+  // Genereate final boss
+  let dngBoss = new Heroes(
+    fnFromArray(arrNamesMiniBoss),
+    fnRandomNumRange(100, 150),
+    fnRandomNumRange(20, 35),
+    null,
+    null,
+    fnFromArray(arrLuck),
+    "Evil " + fnFromArray(arrWeapons),
+    "Dark " + fnFromArray(arrClasses),
+  ); // END dngBoss
+  console.log("Final Boss:", dngBoss);
+
+  document.querySelector("#pDngEnemy").innerHTML =
+    "<strong>" +
+    dngBoss.hName +
+    "</strong> blocks your path! " +
+    "They wield a " +
+    dngBoss.hWEP +
+    " and command the " +
+    dngBoss.hCLS +
+    ", They. have <strong>" +
+    dngBoss.hHP +
+    "HP</strong>. Your tribe must attack together!";
+
+  document.querySelector("#pDngAction").innerHTML =
+    "<button id='btnDngAttack'>⚔️ Combined Attack!</button>";
+
+  let elBtnDngAttack = document.querySelector("#btnDngAttack");
+  elBtnDngAttack.addEventListener("click", function () {
+    fnDngFight();
+  });
+
+  function fnDngFight() {
+    console.log("fnDngFight() is running");
+
+    // Combined STR of all three tribe members
+    let totalSTR =
+      myTribe.pMain.hSTR + myTribe.pComp02.hSTR + myTribe.pComp03.hSTR;
+    console.log("Combined STR:", totalSTR, "VS Boss HP:", dngBoss.hHP);
+
+    elBtnDngAttack.disabled = true;
+
+    if (totalSTR >= dngBoss.hHP) {
+      // WIN
+      let tmpGold = fnRandomNumRange(2000, 5000);
+      myTribe._gold += tmpGold;
+      myTribe._region = valRegion;
+      myTribe._currentScreen = "#pgDungeon";
+      localStorage.setItem(myTribe._id, JSON.stringify(myTribe));
+
+      document.querySelector("#pDngRes").innerHTML =
+        "<p>Congratulations! Your tribe has defeated " +
+        dngBoss.hName +
+        "!</p>" +
+        "<p>You have conquered <strong>" +
+        valRegion +
+        "</strong>! Glory to your Tribe!</p>" +
+        "<p><button onclick=\"fnScreenNav('#pgDungeon','#pgWelcome');\">Play Again</button></p>";
+    } else {
+      // LOSE
+      myTribe._currentScreen = "#pDungeon";
+      localStorage.setItem(myTribe._id, JSON.stringify(myTribe));
+
+      document.querySelector("#pDngRes").innerHTML =
+        "<p>Alas! Your tribe was defeated by " +
+        dngBoss.hName +
+        "!</p>" +
+        "<p><strong>" +
+        valRegion +
+        "</strong> remains unconquered... for now.</p>" +
+        "<p>Your combined strength of " +
+        totalSTR +
+        " was not enough against " +
+        dngBoss.hHP +
+        "HP. Train harder!</p>" +
+        "<p><button onclick=\"fnScreenNav('#pgDungeon','#pgWelcome');\">Try Again</button></p>";
+    } // END if..else
+  } // END fnDngFight()
 } // END tmpLevel()
 
 // For all the action at the Tavern level
@@ -1105,9 +1240,9 @@ function fnLake(currTribe) {
   // Generate this level's mini-boss
   // constructor(hName, hHP, hSTR, hSPD, hMP, hLUK, hWEP, hCLS) {
   let lakBoss = new Heroes(
-    fnFromArray(arrNameMiniBoss),
+    fnFromArray(arrNamesMiniBoss),
     fnRandomNumRange(50, 75),
-    null,
+    fnRandomNumRange(10, 19),
     null,
     null,
     null,
@@ -1147,9 +1282,15 @@ function fnLake(currTribe) {
   let elBtnLakC02 = document.querySelector("#btnLakC02");
   let elBtnLakC03 = document.querySelector("#btnLakC03");
 
-  elBtnLakMain.addEventListener("click", fnLakFightMain);
-  elBtnLakC02.addEventListener("click", fnLakFightTMP);
-  elBtnLakC03.addEventListener("click", fnLakFightTMP);
+  elBtnLakMain.addEventListener("click", function () {
+    fnLakFight(myTribe.pMain, elBtnLakMain);
+  });
+  elBtnLakC02.addEventListener("click", function () {
+    fnLakFight(myTribe.pComp02, elBtnLakC02);
+  });
+  elBtnLakC03.addEventListener("click", function () {
+    fnLakFight(myTribe.pComp03, elBtnLakC03);
+  });
 
   function fnLakFight(pChar, pBtn) {
     console.log(pChar, "will fight");
@@ -1213,10 +1354,10 @@ function fnLake(currTribe) {
       console.log("Keep fighting them", lakBoss.hHP);
 
       // You take damage, determine 10% of a damage
-      let tmpHIT = myTribe.pMain.hHP / 10;
+
       // Then subtract and re-set the value of the property
-      myTribe.pMain.hHP = Math.round(myTribe.pMain.hHP - tmpHIT);
-      console.log("Down to", myTribe.pMain.hHP);
+      pChar.hHP -= lakBoss.hSTR;
+      console.log("Down to", pChar.hHP);
 
       // Then update the weaker
       document.querySelector("#pLakRes").innerHTML =
@@ -1252,7 +1393,7 @@ function fnLake(currTribe) {
           lakBoss.hName +
           "!</p>" +
           "<p>Take leave of the Dungeon <button id='btnLakRes'>Go!</button></p>"; // END #pLakRes
-        let elBtnLakRes = document.querySelector("btnLakRes");
+        let elBtnLakRes = document.querySelector("#btnLakRes");
         elBtnLakRes.addEventListener("click", function () {
           fnGameNav("#pgLake", myTribe._currentScreen, myTribe._id);
         });
@@ -1270,10 +1411,10 @@ function fnMountain(currTribe) {
   let myTribe = JSON.parse(localStorage.getItem(currTribe));
   console.log("All tribe data", myTribe);
 
-  document.querySelector("#pMtnMsg").innerHTML =
+  document.querySelector("#pMntMsg").innerHTML =
     "Welcome to the Monty Mountain. A powerful foe stands before you! You must all join forces to defeat them!";
 
-  document.querySelector("#pMtnTribe").innerHTML =
+  document.querySelector("#pMntTribe").innerHTML =
     "<table border='1' class='contentCenter boxHero'><tr>" +
     "<td><strong>" +
     myTribe.pMain.hName +
@@ -1314,7 +1455,7 @@ function fnMountain(currTribe) {
   // contructor(hName, hHP, hSTR, hMP, hLUK, hWEP, hCLS) {
   let mntBoss = new Heroes(
     fnFromArray(arrNamesMiniBoss),
-    fn / fnRandomNumRange(55, 80),
+    fnRandomNumRange(55, 80),
     fnRandomNumRange(10, 19),
     null,
     null,
@@ -1422,7 +1563,7 @@ function fnMountain(currTribe) {
       // Keep fighting
       console.log("Keep fighting them", mntBoss.hHP);
 
-      // // You take damage, dtermine 10% of a damage
+      // // You take damage, determine 10% of a damage
       // let tmpHIT = pChar.hHP / 10;
       // // Then subtract and re-set the value of the property
       // pChar.hHP = Math.round(pChar.hHP - tmpHIT);
@@ -1485,13 +1626,13 @@ function fnBridge(currTribe) {
   console.log("At the BRIDGE with", currTribe);
 
   // Load all the data for this tribe
-  let.myTribe = JSON.parse(localStorage.getItem(currTribe));
+  let myTribe = JSON.parse(localStorage.getItem(currTribe));
   console.log("All tribe data", myTribe);
 
-  document.querySelector("#pgBrdMsg").innerHTML =
+  document.querySelector("#pBrdMsg").innerHTML =
     "Welcome to the Bridge. A powerful foe stands before you! You must all join forces to defeat them!";
 
-  document.querySelector("#pgBrdTribe").innerHTML =
+  document.querySelector("#pBrdTribe").innerHTML =
     "<table border='1' class='contentCenter boxHero'><tr>" +
     "<td><strong>" +
     myTribe.pMain.hName +
@@ -1532,7 +1673,7 @@ function fnBridge(currTribe) {
   // constructor(hName, hHP, hSTR, hSPD, hMP, hLUK, hWEP, hCLS) {
   let brdBoss = new Heroes(
     fnFromArray(arrNamesMiniBoss),
-    fn / fnRandomNumRange(55, 80),
+    fnRandomNumRange(55, 80),
     fnRandomNumRange(10, 19),
     null,
     null,
@@ -1543,7 +1684,7 @@ function fnBridge(currTribe) {
   console.log(brdBoss);
 
   // Display on-screen this miniboss
-  document.querySelector("#pMntEnemy").innerHTML =
+  document.querySelector("#pBrdEnemy").innerHTML =
     brdBoss.hName +
     " stands before you! They hold an " +
     brdBoss.hWEP +
@@ -1569,22 +1710,22 @@ function fnBridge(currTribe) {
     " <button id='btnBrdC03'>Go</button>";
 
   // JS Objects referencing this dynamically-generated buttons
-  let elBtnMntMain = document.querySelector("#btnBrdMain");
-  let elBtnMntC02 = document.querySelector("#btnBrdC02");
-  let elBtnMntC03 = document.querySelector("#btnBrdC03");
+  let elBtnBrdMain = document.querySelector("#btnBrdMain");
+  let elBtnBrdC02 = document.querySelector("#btnBrdC02");
+  let elBtnBrdC03 = document.querySelector("#btnBrdC03");
 
-  elBtnMntMain.addEventListener("click", function () {
+  elBtnBrdMain.addEventListener("click", function () {
     fnBrdFight(myTribe.pMain, elBtnBrdMain);
   });
-  elBtnMntC02.addEventListener("click", function () {
+  elBtnBrdC02.addEventListener("click", function () {
     fnBrdFight(myTribe.pComp02, elBtnBrdC02);
   });
-  elBtnMntC03.addEventListener("click", function () {
+  elBtnBrdC03.addEventListener("click", function () {
     fnBrdFight(myTribe.pComp03, elBtnBrdC03);
   });
 
   // Bridge fight code
-  function fnMntFight(pChar, pBtn) {
+  function fnBrdFight(pChar, pBtn) {
     console.log("Who fights:", pChar, "Which button:", pBtn);
 
     // Disable the button of the currently-fighting character
@@ -1631,7 +1772,7 @@ function fnBridge(currTribe) {
         " and earned " +
         tmpGold.toLocaleString("en-US") +
         " GOLD!</p>" +
-        "<p>Strut off to the Dungeon <button id='btnBRdRes'>Go!</button></p>"; // END #pBrdRes
+        "<p>Strut off to the Dungeon <button id='btnBrdRes'>Go!</button></p>"; // END #pBrdRes
       let elBtnBrdRes = document.querySelector("#btnBrdRes");
       elBtnBrdRes.addEventListener("click", function () {
         fnGameNav("#pgBridge", myTribe._currentScreen, myTribe._id);

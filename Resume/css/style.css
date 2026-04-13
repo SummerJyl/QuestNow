@@ -14,7 +14,7 @@ section.active {
 
 section main {
   flex: 1;
-  background-color: #D4DE95;
+  background-color: #d4de95;
   padding: 1.5em;
 }
 
@@ -23,6 +23,11 @@ section header {
   color: #f0d4f4;
   padding: 1em 1.5em;
   border-bottom: 2px solid #8e4a96;
+}
+section header img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
 }
 
 section footer {
@@ -33,7 +38,14 @@ section footer {
 }
 
 section footer h4 {
-    color: #f4d4f4;
+  color: #f4d4f4;
+}
+
+section footer img {
+  width: 60%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 button {
@@ -81,14 +93,14 @@ td {
 }
 
 #pgLGTribe p {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(102,47,107,0.15);
-    border: 1.5px solid #8e4a96;
-    border-radius: 8px;
-    padding: 0.75em 1 em;
-    margin-bottom: 0.5em;
-    font-weight: bold;
-    color: #3a1a40;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(102, 47, 107, 0.15);
+  border: 1.5px solid #8e4a96;
+  border-radius: 8px;
+  padding: 0.75em 1 em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  color: #3a1a40;
 }
