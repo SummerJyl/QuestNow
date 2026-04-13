@@ -14,7 +14,7 @@ section.active {
 
 section main {
   flex: 1;
-  background-color: #d4de95;
+  background-color: #D4DE95;
   padding: 1.5em;
 }
 
@@ -27,8 +27,13 @@ section header {
 
 section footer {
   background-color: #4a1f50;
+  color: #f0d4f4;
   padding: 0.75em;
   text-align: center;
+}
+
+section footer h4 {
+    color: #f4d4f4;
 }
 
 button {
@@ -36,6 +41,11 @@ button {
   border-radius: 8px;
   font-size: 15px;
   cursor: pointer;
+}
+
+section#pgWelcome header img {
+  width: 100%;
+  height: auto;
 }
 
 .contentCenter {
@@ -68,4 +78,17 @@ td {
   border-radius: 8px;
   padding: 0.5em;
   text-align: center;
+}
+
+#pgLGTribe p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(102,47,107,0.15);
+    border: 1.5px solid #8e4a96;
+    border-radius: 8px;
+    padding: 0.75em 1 em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    color: #3a1a40;
 }
