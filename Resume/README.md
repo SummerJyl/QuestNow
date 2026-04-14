@@ -82,4 +82,3 @@ Game progress is saved to `localStorage` using the player's email as a unique ke
 
 Copyright 2026 J. Summers. All rights reserved.
 
-Copyright 2026 J. Summers. All rights reserved.
